@@ -183,3 +183,13 @@ def render_dashboard():
         st.dataframe(pd.DataFrame(table_data), use_container_width=True)
     else:
         st.info("No active pricing requests currently in review.")
+
+
+if __name__ == "__main__":
+    from src.database import init_db
+    from src.utils import inject_custom_css, render_sidebar_role_selector
+    init_db()
+    inject_custom_css()
+    render_sidebar_role_selector()
+    render_dashboard()
+

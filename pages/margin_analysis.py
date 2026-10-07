@@ -166,3 +166,13 @@ def render_margin_analysis(current_role: str):
         s2.metric("Total Processing Cost", format_inr(sim_fin["total_processing_cost"]))
         s3.metric("Projected Gross Margin", format_inr(sim_fin["projected_gross_margin"]))
         s4.metric("Margin %", f"{sim_fin['projected_margin_pct']}%")
+
+
+if __name__ == "__main__":
+    from src.database import init_db
+    from src.utils import inject_custom_css, render_sidebar_role_selector
+    init_db()
+    inject_custom_css()
+    role = render_sidebar_role_selector()
+    render_margin_analysis(role)
+

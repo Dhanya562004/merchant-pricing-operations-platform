@@ -135,3 +135,13 @@ def render_approvals(current_role: str):
             st.dataframe(pd.DataFrame(all_history), use_container_width=True)
         else:
             st.info("No approval logs recorded.")
+
+
+if __name__ == "__main__":
+    from src.database import init_db
+    from src.utils import inject_custom_css, render_sidebar_role_selector
+    init_db()
+    inject_custom_css()
+    role = render_sidebar_role_selector()
+    render_approvals(role)
+

@@ -67,3 +67,13 @@ def render_reports():
             mime="text/csv",
             type="primary"
         )
+
+
+if __name__ == "__main__":
+    from src.database import init_db
+    from src.utils import inject_custom_css, render_sidebar_role_selector
+    init_db()
+    inject_custom_css()
+    render_sidebar_role_selector()
+    render_reports()
+

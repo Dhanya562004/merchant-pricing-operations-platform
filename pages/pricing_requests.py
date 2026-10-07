@@ -251,3 +251,13 @@ def render_pricing_requests(current_role: str):
                     )
                     st.success(f"🎉 Pricing revamp request **{new_req['request_id']}** submitted successfully! Current Stage: `{new_req['current_stage']}`")
                     st.balloons()
+
+
+if __name__ == "__main__":
+    from src.database import init_db
+    from src.utils import inject_custom_css, render_sidebar_role_selector
+    init_db()
+    inject_custom_css()
+    role = render_sidebar_role_selector()
+    render_pricing_requests(role)
+

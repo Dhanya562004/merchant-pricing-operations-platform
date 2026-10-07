@@ -1,6 +1,6 @@
 """
 Utility and Formatting functions for Merchant Pricing Operations Platform.
-Provides currency/percentage formatting, custom HTML badge generators, and sleek CSS styling.
+Provides currency/percentage formatting, custom HTML badge generators, sleek CSS styling, and global sidebar renderer.
 """
 import streamlit as st
 
@@ -99,6 +99,54 @@ def get_sla_badge(sla_status: str, time_str: str = "") -> str:
         return f'<span style="background-color: rgba(16, 185, 129, 0.15); color: #10b981; font-weight: 600; padding: 4px 8px; border-radius: 6px; border: 1px solid #10b981; font-size: 0.78rem;">🟢 Within SLA</span>'
     else:
         return f'<span style="background-color: rgba(107, 114, 128, 0.15); color: #9ca3af; font-weight: 600; padding: 4px 8px; border-radius: 6px; border: 1px solid #9ca3af; font-size: 0.78rem;">⚪ {time_str or "N/A"}</span>'
+
+
+def render_sidebar_role_selector() -> str:
+    """Renders the Demo Role selector in Streamlit sidebar and returns active role."""
+    st.sidebar.markdown("### 💳 Merchant Pricing Ops")
+    st.sidebar.caption("Fintech Pricing Operations Simulation")
+    st.sidebar.markdown("---")
+
+    demo_roles = [
+        "Pricing Analyst",
+        "POC Reviewer",
+        "Banking Operations",
+        "Checker",
+        "Function Head",
+        "Operations Admin"
+    ]
+
+    if "demo_role" not in st.session_state:
+        st.session_state["demo_role"] = "Pricing Analyst"
+
+    current_role = st.session_state["demo_role"]
+    current_index = demo_roles.index(current_role) if current_role in demo_roles else 0
+
+    selected_role = st.sidebar.selectbox(
+        "Active Role for Simulation:",
+        demo_roles,
+        index=current_index,
+        key="global_sidebar_role_selector"
+    )
+    st.session_state["demo_role"] = selected_role
+    st.sidebar.info(f"Active Role: **{selected_role}**")
+    st.sidebar.markdown("---")
+
+    # Reset Demo Data Button in Sidebar
+    if st.sidebar.button("🔄 Reset Demo Data", key="global_sidebar_reset_btn"):
+        from src.database import reset_database
+        reset_database()
+        st.sidebar.success("Demo data reset complete!")
+        st.rerun()
+
+    st.sidebar.markdown("---")
+    st.sidebar.caption("""
+    **Disclaimer:**  
+    This is a portfolio simulation of fintech pricing operations.  
+    Not affiliated with or connected to Razorpay, Salesforce, Freshdesk, or banking APIs.
+    """)
+
+    return selected_role
 
 
 def inject_custom_css():

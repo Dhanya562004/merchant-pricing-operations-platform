@@ -51,3 +51,13 @@ def render_audit_log():
                 "Reason / Details": l["reason"] or "—"
             })
         st.dataframe(pd.DataFrame(disp_logs), use_container_width=True)
+
+
+if __name__ == "__main__":
+    from src.database import init_db
+    from src.utils import inject_custom_css, render_sidebar_role_selector
+    init_db()
+    inject_custom_css()
+    render_sidebar_role_selector()
+    render_audit_log()
+

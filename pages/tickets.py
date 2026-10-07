@@ -145,3 +145,13 @@ def render_tickets(current_role: str):
                         )
                         st.success(f"🎉 Ticket **{new_t['ticket_id']}** created and assigned to **{assigned_team}**!")
                         st.rerun()
+
+
+if __name__ == "__main__":
+    from src.database import init_db
+    from src.utils import inject_custom_css, render_sidebar_role_selector
+    init_db()
+    inject_custom_css()
+    role = render_sidebar_role_selector()
+    render_tickets(role)
+

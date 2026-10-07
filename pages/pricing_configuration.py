@@ -96,3 +96,13 @@ def render_pricing_configuration():
                 st.dataframe(pd.DataFrame(p_rows), use_container_width=True)
             else:
                 st.info("No active pricing configured for this merchant.")
+
+
+if __name__ == "__main__":
+    from src.database import init_db
+    from src.utils import inject_custom_css, render_sidebar_role_selector
+    init_db()
+    inject_custom_css()
+    render_sidebar_role_selector()
+    render_pricing_configuration()
+
