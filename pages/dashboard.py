@@ -48,7 +48,7 @@ def render_dashboard():
     st.markdown("---")
 
     # SLA Alert Banner if Breached or At Risk
-    at_risk_count = len(df_req[df_req["sla_status"] == "AT_RISK"])
+    at_risk_count = len(df_req[df_req["sla_status"] == "AT_RISK"]) if "sla_status" in df_req.columns else 0
     if sla_breaches > 0 or at_risk_count > 0:
         st.error(f"⚠️ **Operational SLA Alert**: {sla_breaches} request(s) BREACHED SLA (>48h) and {at_risk_count} request(s) are AT RISK (<12h remaining). Please check the Ticket Desk queue.")
 
@@ -178,7 +178,7 @@ def render_dashboard():
                 "Proposed MDR": f"{r['proposed_mdr']}%",
                 "Current Stage": r["current_stage"],
                 "Risk": r["risk_level"],
-                "SLA Status": r["sla_status"]
+                "SLA Status": r.get("sla_status", "UNKNOWN")
             })
         st.dataframe(pd.DataFrame(table_data), use_container_width=True)
     else:

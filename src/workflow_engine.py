@@ -239,6 +239,7 @@ def get_all_requests(
     rows = cursor.fetchall()
     conn.close()
 
+    now = datetime.now()
     result = []
     for r in rows:
         req = dict(r)
@@ -247,6 +248,32 @@ def get_all_requests(
             req["risk_reasons_list"] = json.loads(req["risk_reasons"])
         except Exception:
             req["risk_reasons_list"] = []
+
+        # Calculate SLA status dynamically
+        try:
+            deadline = datetime.strptime(req["sla_deadline"], "%Y-%m-%d %H:%M:%S")
+            if req["status"] in ["EXECUTED", "REJECTED"]:
+                req["sla_status"] = "COMPLETED"
+                req["time_remaining_str"] = "Completed"
+            else:
+                time_left = deadline - now
+                if time_left.total_seconds() < 0:
+                    req["sla_status"] = "BREACHED"
+                    req["is_sla_breached"] = 1
+                    hours_over = abs(time_left.total_seconds()) / 3600.0
+                    req["time_remaining_str"] = f"Breached by {hours_over:.1f} hrs"
+                elif time_left.total_seconds() < 43200: # < 12 hours remaining
+                    req["sla_status"] = "AT_RISK"
+                    hours_left = time_left.total_seconds() / 3600.0
+                    req["time_remaining_str"] = f"{hours_left:.1f} hrs left"
+                else:
+                    req["sla_status"] = "OK"
+                    hours_left = time_left.total_seconds() / 3600.0
+                    req["time_remaining_str"] = f"{hours_left:.1f} hrs left"
+        except Exception:
+            req["sla_status"] = "UNKNOWN"
+            req["time_remaining_str"] = "N/A"
+
         result.append(req)
 
     return result
