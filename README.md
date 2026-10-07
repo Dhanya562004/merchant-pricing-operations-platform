@@ -10,11 +10,27 @@
 
 ---
 
-> ### ⚠️ **DISCLAIMER**
-> **"Fintech Pricing Operations Simulation"**  
-> This project is a realistic portfolio simulation of a fintech Finance Operations / Pricing Operations platform built for demonstration, portfolio, and analytical purposes.  
-> **It is NOT affiliated with, connected to, sponsored by, or endorsed by Razorpay, Salesforce, Freshdesk, or any real commercial banking or payment gateway systems.**  
-> All merchant names, IDs, transaction volumes, rate cards, and financial figures used in this application are completely fictional synthetic demo data.
+## Disclaimer
+
+This project is a portfolio simulation of a fintech Finance Operations and Merchant Pricing Operations platform created for educational, demonstration, and interview purposes.
+
+It is not affiliated with, connected to, sponsored by, or endorsed by Razorpay, Salesforce, Freshdesk, any bank, payment network, or other commercial financial institution.
+
+All merchant names, merchant IDs, pricing data, transaction volumes, financial figures, workflow records, tickets, and operational scenarios used in this application are fictional and created solely for demonstration purposes.
+
+This application does not connect to or process:
+
+* Real payment transactions
+* Real banking systems
+* Real merchant accounts
+* Real payment networks
+* Razorpay or other payment-provider APIs
+* Salesforce or Freshdesk
+* Real customer or financial data
+
+The pricing rules, margin calculations, approval hierarchy, SOP policies, SLA tracking, ticket workflows, and audit mechanisms are simulated implementations designed to demonstrate software engineering and Finance Operations concepts.
+
+No real financial, pricing, or business decisions should be made using this application.
 
 ---
 
@@ -182,11 +198,3 @@ pytest -v
 5. **Checker Review**: Switch Demo Role to **Banking Operations**, approve the stage. Then switch Demo Role to **Checker**, approve the final review. Request advances to `READY_FOR_EXECUTION`.
 6. **Pricing Execution**: In **Approval Hierarchy Workbench** → **Ready for Execution** tab, click **Execute Pricing Change in Production**.
 7. **Verification**: Go to **Merchant Pricing Configuration** to verify that the merchant's active rate card has been updated to `1.65%`, and inspect **Audit Trail Explorer** to see the immutable `PRICING_EXECUTED` log record.
-
----
-
-## 📄 Resume Bullet Points (Based Strictly on Implemented Capabilities)
-
-- **Engineered a Merchant Pricing Operations Platform** using Python, Streamlit, and SQLite to automate merchant rate card revamp lifecycles, policy enforcement, and multi-level approval hierarchies across Cards, UPI Recurring, E-Mandate, and Optimiser payment methods.
-- **Built a Deterministic Validation & Profitability Engine** computing gross margin %, network interchange fees, and annualized financial impacts in real time, automatically blocking loss-making deals and routing high-risk requests to Checker and Function Head stages based on configurable SOP rules.
-- **Implemented an Enterprise Service Workflow & Audit Desk** featuring Salesforce-style ticket routing, SLA countdown status tracking (`🟢 Within SLA`, `🟡 At Risk`, `🔴 Breached`), and immutable event logging, validated by a 25-test automated pytest suite.
