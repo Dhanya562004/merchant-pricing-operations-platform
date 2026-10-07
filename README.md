@@ -1,17 +1,28 @@
 # Merchant Pricing Operations & Approval Platform
 **Fintech Pricing Operations Simulation**
 
-A realistic, production-ready internal Finance Operations & Pricing Operations platform built with Python 3.11+, Streamlit, SQLite, Pandas, and Plotly.
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://merchant-pricing-operations-platform-cby35zsvsfqzuywnpskch4.streamlit.app/)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Tests: 25 Passed](https://img.shields.io/badge/Tests-25%20Passed-brightgreen.svg)](tests/)
+
+🌐 **Live Streamlit App:** [https://merchant-pricing-operations-platform-cby35zsvsfqzuywnpskch4.streamlit.app/](https://merchant-pricing-operations-platform-cby35zsvsfqzuywnpskch4.streamlit.app/)
 
 ---
 
-## 📌 Project Overview & Business Problem
+> ### ⚠️ **DISCLAIMER**
+> **"Fintech Pricing Operations Simulation"**  
+> This project is a realistic portfolio simulation of a fintech Finance Operations / Pricing Operations platform built for demonstration, portfolio, and analytical purposes.  
+> **It is NOT affiliated with, connected to, sponsored by, or endorsed by Razorpay, Salesforce, Freshdesk, or any real commercial banking or payment gateway systems.**  
+> All merchant names, IDs, transaction volumes, rate cards, and financial figures used in this application are completely fictional synthetic demo data.
 
-In high-volume payment processing platforms, merchant pricing changes (MDR percentage, fixed per-transaction fees, minimum/maximum fee caps) represent a critical financial control point. Granting unvalidated price cuts can compress operating margins or create loss-making payment flows. Conversely, delayed pricing approvals lead to merchant churn.
+---
+
+## 📌 Executive Summary & Business Problem
+
+In high-volume payment processing platforms, merchant pricing changes (MDR percentage, fixed per-transaction fees, minimum/maximum fee caps) represent a critical financial control point. Unvalidated price cuts compress operating margins or create loss-making payment flows. Conversely, delayed pricing approvals lead to merchant churn.
 
 The **Merchant Pricing Operations & Approval Platform** provides internal pricing analysts, banking operations, checkers, and function heads with a deterministic governance engine, multi-level approval hierarchy, real-time margin/profitability calculator, service desk workflow, and immutable audit trail.
-
-> **Disclaimer:** This project is a portfolio simulation of fintech pricing operations designed for operational demonstration purposes. It is **not** affiliated with, connected to, or endorsed by Razorpay, Salesforce, Freshdesk, or any commercial banking entity.
 
 ---
 
@@ -38,7 +49,7 @@ flowchart TD
     PC --> RE
 ```
 
-### Data Pipeline Architecture
+### Data Pipeline Sequence
 
 ```mermaid
 sequenceDiagram
@@ -63,7 +74,20 @@ sequenceDiagram
 
 ---
 
-## 🚀 Key Operational Features
+## 👑 Role-Based Access Control (RBAC) Matrix
+
+| Simulated Role | System Authority & Permissions |
+| :--- | :--- |
+| **Pricing Analyst** | Create requests, edit drafts, submit proposals, view request queue & analytics |
+| **POC Reviewer** | Review completeness & approve/send back `POC_REVIEW` stage requests |
+| **Banking Operations** | Add network/acquiring bank cost assumptions & approve `BANKING_MARGIN_VALIDATION` stage |
+| **Checker** | Operational check & approve `CHECKER_REVIEW` stage requests |
+| **Function Head** | Executive sign-off for high-risk requests (`>20% MDR cut` or `Margin < 5%`) |
+| **Operations Admin** | Full access to all stages, policy threshold management, and database reset |
+
+---
+
+## 🚀 Core Platform Capabilities
 
 1. **Merchant Pricing Configuration**: Active rate card management across payment methods (**Cards**, **UPI Recurring**, **E-Mandate**, **Optimiser**).
 2. **Pricing Revamp Request Lifecycle**: Request generation (`PR-2026-XXXX`), draft editing, justification attachment, real-time pre-submission validation.
@@ -131,15 +155,6 @@ Open your browser at `http://localhost:8501`.
 
 ---
 
-## ☁️ Streamlit Community Cloud Deployment
-
-1. Push code to your GitHub repository: `https://github.com/Dhanya562004/merchant-pricing-operations-platform.git`
-2. Log in to [share.streamlit.io](https://share.streamlit.io/).
-3. Click **New App**, select your repository, set main file path to `app.py`.
-4. Click **Deploy**!
-
----
-
 ## 🧪 Automated Testing
 
 Execute the comprehensive automated test suite (25 tests):
@@ -172,6 +187,6 @@ pytest -v
 
 ## 📄 Resume Bullet Points (Based Strictly on Implemented Capabilities)
 
-- **Engineered a Merchant Pricing Operations Platform** using Python, Streamlit, and SQLite to automate pricing revamp workflows, policy enforcement, and multi-level approval hierarchies across Cards, UPI Recurring, E-Mandate, and Optimiser payment methods.
-- **Built a Deterministic Validation & Profitability Engine** that computes real-time gross margin %, interchange costs, and annualized revenue impacts, automatically blocking loss-making requests and enforcing role-gated approval routing based on configurable SOP policy rules.
-- **Implemented an Enterprise Service Workflow & Audit Desk** featuring Salesforce-style ticket routing, SLA countdown monitoring, and immutable event logging, validated by a 25-test automated pytest suite.
+- **Engineered a Merchant Pricing Operations Platform** using Python, Streamlit, and SQLite to automate merchant rate card revamp lifecycles, policy enforcement, and multi-level approval hierarchies across Cards, UPI Recurring, E-Mandate, and Optimiser payment methods.
+- **Built a Deterministic Validation & Profitability Engine** computing gross margin %, network interchange fees, and annualized financial impacts in real time, automatically blocking loss-making deals and routing high-risk requests to Checker and Function Head stages based on configurable SOP rules.
+- **Implemented an Enterprise Service Workflow & Audit Desk** featuring Salesforce-style ticket routing, SLA countdown status tracking (`🟢 Within SLA`, `🟡 At Risk`, `🔴 Breached`), and immutable event logging, validated by a 25-test automated pytest suite.
